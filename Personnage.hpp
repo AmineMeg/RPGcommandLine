@@ -1,6 +1,9 @@
+#ifndef PERSONNAGE_HPP_INCLUDED
+#define PERSONNAGE_HPP_INCLUDED
+
 #include <iostream>
 #include <vector>
-#include "Objet.hpp"
+//#include "Objet.hpp"
 using namespace std;
 
 class Personnage{
@@ -8,7 +11,7 @@ class Personnage{
         string nom;
         int sante;
         int habilite;
-        vector<Objet&> sac;  
+        //vector<Objet&> sac;
 
     public:
         Personnage(int sante,int hab,string nom);
@@ -16,9 +19,12 @@ class Personnage{
         string getNom();
         int getSante();
         int getHabilite();
-        Objet getObjetAt(int i);
-        vector<Objet&> getSac();
-        void ajouterObjet(Objet obj);
+        //Objet getObjetAt(int i);
+        // vector<Objet&> getSac();
+        //void ajouterObjet(Objet obj);
 
 
 };
+
+
+#endif // PERSONNAGE_HPP_INCLUDED

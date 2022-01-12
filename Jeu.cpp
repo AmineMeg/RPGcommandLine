@@ -1,5 +1,5 @@
 #include "Jeu.hpp"
-#include "Amazone.cpp"
+#include "Amazones.cpp"
 
 Jeu::Jeu(){
 
@@ -10,14 +10,19 @@ void Jeu::creationJoueur(){
     int rep;
     cin>>rep;
 
-    if(rep!=1 || rep!=2 || rep!=3 || rep!=4 ){
+    while(rep!=1 && rep!=2 & rep!=3 && rep!=4 ){
         cout<<"choisissez un personnage valable !"<<endl;
+        cin>>rep;
     }
     if(rep==4){
-         Amazone am{"test"}
+         Amazones * am = new Amazones("dsdeds");
+         joueur=am;
+
     }
 
-
-
-
 }
+
+Personnage * Jeu::getJoueur(){
+    return joueur;
+}
+

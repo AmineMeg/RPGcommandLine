@@ -1,3 +1,6 @@
+#ifndef JEU_HPP_INCLUDED
+#define JEU_HPP_INCLUDED
+
 #include "Personnage.cpp"
 #include <iostream>
 #include <vector>
@@ -5,13 +8,16 @@ using namespace std;
 
 class Jeu {
     private:
-    Personnage *joueur;
-    vector<Personnage*> bots;
+        Personnage *joueur;
+
     public:
         Jeu();
-        void creationPersonnages();
+        Personnage creationPersonnages();
         void creationJoueur();
         void setJoueur(Personnage *joueur);
         Personnage* getJoueur();
 };
 
+
+
+#endif // JEU_HPP_INCLUDED

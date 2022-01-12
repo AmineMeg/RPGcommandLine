@@ -3,7 +3,7 @@
 Personnage::Personnage(int sante,int hab,string nom){
     sante=sante;
     habilite=hab;
-    nom=nom;
+    Personnage::nom=nom;
 }
 
 void Personnage::setSante(int s){
@@ -17,7 +17,7 @@ int Personnage::getSante(){
 }
 int Personnage::getHabilite(){
     return habilite;
-}
+}/*
 Objet Personnage::getObjetAt(int i){
     return sac.at(i);
 }
@@ -25,5 +25,5 @@ vector<Objet&> Personnage::getSac(){
     return sac;
 }
 void Personnage::ajouterObjet(Objet obj){
-    sac.push_back(obj);
-}
+    sac.push_back(&obj);
+}*/

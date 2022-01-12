@@ -4,8 +4,8 @@
 using namespace std;
 int main( int argc, char *argv[], char *envp[] )
 {
-
-Jeu j1{};
-j1.creationJoueur();
+    Jeu j{};
+    j.creationJoueur();
+    cout<<"ouais"<<j.getJoueur()->getNom();
 
 }
