@@ -3,25 +3,36 @@
 
 #include <iostream>
 #include <vector>
-//#include "Objet.hpp"
+class Objet;
 using namespace std;
 
 class Personnage{
     private:
         string nom;
+        int attaque;
+        int force;
+        int resistance;
         int sante;
         int habilite;
-        //vector<Objet&> sac;
+        vector<Objet*> sac;
 
     public:
-        Personnage(int sante,int hab,string nom);
+        Personnage(int sante,int hab,int fo,int res,int att,string nom);
+        void setAttaque(int att);
+        void setForce(int fo);
+        void setHabilite(int ha);
+        void setResistance(int re);
         void setSante(int s);
         string getNom();
         int getSante();
         int getHabilite();
-        //Objet getObjetAt(int i);
-        // vector<Objet&> getSac();
-        //void ajouterObjet(Objet obj);
+        int getAttaque();
+        int getForce();
+        int getResistance();
+        Objet * getObjetAt(int i);
+        vector<Objet*> getSac();
+        bool ajouterObjet(Objet * obj);
+        void retirerObjet(Objet * obj);
 
 
 };
