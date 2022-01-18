@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string.h>
-#include "Objet.cpp"
-#include "Jeu.cpp"
-#include "Arme.cpp"
-#include "Armure.cpp"
+#include "Jeu.hpp"
+#include "Arme.hpp"
+#include "Armure.h"
 
 using namespace std;
 int main( int argc, char *argv[], char *envp[] )

@@ -1,8 +1,8 @@
 #include "Jeu.hpp"
-#include "Amazones.cpp"
-#include "Guerriers.cpp"
-#include "Moines.cpp"
-#include "Sorcieres.cpp"
+#include "Amazones.hpp"
+#include "Guerriers.hpp"
+#include "Moines.hpp"
+#include "Sorcieres.hpp"
 Jeu::Jeu(){
 
 }

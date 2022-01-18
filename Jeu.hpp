@@ -1,7 +1,7 @@
 #ifndef JEU_HPP_INCLUDED
 #define JEU_HPP_INCLUDED
 
-#include "Personnage.cpp"
+#include "Personnage.hpp"
 #include <iostream>
 #include <vector>
 #include <stdlib.h>

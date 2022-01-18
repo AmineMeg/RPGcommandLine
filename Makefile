@@ -1,6 +1,6 @@
-OBJS	= Amazones.o Arme.o Armure.o Guerriers.o Jeu.o Plateau.o Salle.o Sorcieres.o Chateau.o Moines.o Objet.o Personnage.o main.o
-SOURCE	= Amazones.cpp Arme.cpp Armure.cpp Guerriers.cpp Jeu.cpp Plateau.cpp Salle.cpp Sorcieres.cpp Chateau.cpp Moines.cpp Objet.cpp Personnage.cpp main.cpp
-HEADER	= Chateau.hpp Moines.hpp Objet.hpp Personnage.hpp Amazones.hpp Arme.hpp Armure.h Guerriers.hpp Jeu.hpp Plateau.hpp Salle.hpp Sorcieres.hpp
+OBJS	= Amazones.o Arme.o Armure.o Guerriers.o Jeu.o Sorcieres.o Chateau.o Moines.o Objet.o Personnage.o main.o
+SOURCE	= Amazones.cpp Arme.cpp Armure.cpp Guerriers.cpp Jeu.cpp Sorcieres.cpp Chateau.cpp Moines.cpp Objet.cpp Personnage.cpp main.cpp
+HEADER	= Chateau.hpp Moines.hpp Objet.hpp Personnage.hpp Amazones.hpp Arme.hpp Armure.h Guerriers.hpp Jeu.hpp Sorcieres.hpp
 OUT	= main.out
 CC	 = g++
 FLAGS	 = -g -c -Wall
@@ -23,12 +23,6 @@ Guerriers.o: Guerriers.cpp
 
 Jeu.o: Jeu.cpp
 	$(CC) $(FLAGS) Jeu.cpp
-
-Plateau.o: Plateau.cpp
-	$(CC) $(FLAGS) Plateau.cpp
-
-Salle.o: Salle.cpp
-	$(CC) $(FLAGS) Salle.cpp
 
 Sorcieres.o: Sorcieres.cpp
 	$(CC) $(FLAGS) Sorcieres.cpp

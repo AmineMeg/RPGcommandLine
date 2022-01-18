@@ -1,5 +1,6 @@
 #ifndef ARMURE_H_INCLUDED
 #define ARMURE_H_INCLUDED
+#include "Objet.hpp" 
 class Armure : public Objet{
 private:
     int habilite;
