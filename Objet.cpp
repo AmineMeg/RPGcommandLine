@@ -4,6 +4,10 @@ Objet::Objet(string nom){
     Objet::nom=nom;
 }
 
+string Objet::getNom(){
+    return nom;
+}
+
 void Objet::setProprietaire(Personnage * pro){
     proprietaire = pro;
 }

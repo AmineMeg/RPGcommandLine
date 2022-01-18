@@ -2,7 +2,7 @@
 #define OBJET_HPP_INCLUDED
 #include <iostream>
 #include <vector>
-#include "Personnage.hpp"
+class Personnage;
 using namespace std;
 class Objet{
 private:
@@ -11,8 +11,11 @@ private:
 public:
     Objet(string nom);
     Personnage * getProprietaire();
+    string getNom();
     void setProprietaire(Personnage * pro);
     void retirerProprietaire();
+    virtual void ajouter(Personnage * proprietaire) {};
+    virtual void retirer() {};
 };
 
 

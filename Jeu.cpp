@@ -1,6 +1,8 @@
 #include "Jeu.hpp"
 #include "Amazones.cpp"
 #include "Guerriers.cpp"
+#include "Moines.cpp"
+#include "Sorcieres.cpp"
 Jeu::Jeu(){
 
 }
@@ -16,12 +18,45 @@ void Jeu::creationJoueur(){
     }
     if(rep==4){
          Amazones * am = new Amazones("dsdeds");
+         cout<<"sante "<<am->getSante();
          joueur=am;
-         Personnage p1 {5,5,5,5,5,"bot1"};
-         Personnage p2 {5,5,5,5,5,"bot2"};
-         Personnage p3 {5,5,5,5,5,"bot3"};
-
-
+         listePerso.push_back(am);
+         Guerriers * gu = new Guerriers("bot1");
+         Moines * mo = new Moines("bot2");
+         Sorcieres * so = new Sorcieres("bot3");
+         listePerso.push_back(gu);
+         listePerso.push_back(mo);
+         listePerso.push_back(so);
+    }else if(rep == 3){
+        Sorcieres * so = new Sorcieres("dsdeds");
+        joueur=so;
+        listePerso.push_back(so);
+        Guerriers * gu = new Guerriers("bot1");
+        Moines * mo = new Moines("bot2");
+        Amazones * am = new Amazones("bot3");
+        listePerso.push_back(gu);
+        listePerso.push_back(mo);
+        listePerso.push_back(am);
+    }else if(rep==2){
+        Moines * mo = new Moines("dsdeds");
+        joueur=mo;
+        listePerso.push_back(mo);
+        Guerriers * gu = new Guerriers("bot1");
+        Sorcieres * so = new Sorcieres("bot2");
+        Amazones * am = new Amazones("bot3");
+        listePerso.push_back(gu);
+        listePerso.push_back(so);
+        listePerso.push_back(am);
+    }else{
+        Guerriers * gu = new Guerriers("dsdeds");
+        joueur=gu;
+        listePerso.push_back(gu);
+        Moines * mo = new Moines("bot1");
+        Sorcieres * so = new Sorcieres("bot2");
+        Amazones * am = new Amazones("bot3");
+        listePerso.push_back(mo);
+        listePerso.push_back(so);
+        listePerso.push_back(am);
     }
 
 }
@@ -58,5 +93,19 @@ void Jeu::combat(Personnage * pers1, Personnage * perso2){
 
 Personnage * Jeu::getJoueur(){
     return joueur;
+}
+
+vector<Personnage*> Jeu::getListePerso(){
+    return listePerso;
+}
+
+void Jeu::mortPersonnage(Personnage * pe){
+    for(int i=0;i<listePerso.size();i++){
+        if(pe == listePerso.at(i)){
+            delete listePerso.at(i);
+            listePerso.erase(listePerso.begin()+i);
+        }
+    }
+    //Ajouter drop item perso dans la piece !!!
 }
 

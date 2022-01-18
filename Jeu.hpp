@@ -11,14 +11,17 @@ using namespace std;
 class Jeu {
     private:
         Personnage *joueur;
+        vector<Personnage*> listePerso;
 
     public:
         Jeu();
-        Personnage creationPersonnages();
+        void creationPersonnages();
         void creationJoueur();
         void setJoueur(Personnage *perso1);
         Personnage * getJoueur();
+        vector<Personnage*> getListePerso();
         void combat(Personnage * pers1, Personnage *perso2);
+        void mortPersonnage(Personnage * pe);
 };
 
 

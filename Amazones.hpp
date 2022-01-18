@@ -7,6 +7,7 @@ class Amazones : public Personnage{
     private:
     public:
         Amazones(string nom);
+        void print(ostream& where,Personnage * pe) const;
 
 
 };

@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-class Objet;
+#include "Objet.hpp"
 using namespace std;
 
 class Personnage{
@@ -33,6 +33,11 @@ class Personnage{
         vector<Objet*> getSac();
         bool ajouterObjet(Objet * obj);
         void retirerObjet(Objet * obj);
+        virtual void print(ostream& where,Personnage * pe) const = 0;
+        friend ostream& operator<<(ostream& os, Personnage* pe) {
+            pe->print(os,pe);
+            return os;
+        }
 
 
 };

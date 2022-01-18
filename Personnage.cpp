@@ -1,7 +1,7 @@
 #include "Personnage.hpp"
 
 Personnage::Personnage(int sante,int hab,int fo,int res,int att,string nom){
-    sante=sante;
+    Personnage::sante=sante;
     habilite=hab;
     Personnage::nom=nom;
     force=fo;
@@ -62,7 +62,11 @@ bool Personnage::ajouterObjet(Objet * obj){
 void Personnage::retirerObjet(Objet * objet){
     for(int i=0;i<sac.size();i++){
         if(sac.at(i)==objet){
+            cout<<"test"<<endl;
+            sac.at(i)->retirer();
             sac.erase(sac.begin()+i);
+            cout<<"test"<<endl;
+            break;
         }
     }
 }

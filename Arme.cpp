@@ -1,13 +1,13 @@
 #include "Arme.hpp"
 #include "Personnage.hpp"
-#include "Objet.cpp"
+
 Arme::Arme(string nom,int fo,int ha,int att):Objet(nom){
     force=fo;
     habilite=ha;
     attaque=att;
 }
 
-void Arme::ajoutArme(Personnage* proprietaire){
+void Arme::ajouter(Personnage* proprietaire){
 
     setProprietaire(proprietaire);
     if(getProprietaire()->ajouterObjet(this)){
@@ -19,11 +19,10 @@ void Arme::ajoutArme(Personnage* proprietaire){
     }
 }
 
-void Arme::retirerArme(){
-
+void Arme::retirer(){
+    cout<<"retirer depuis arme"<<endl;
     getProprietaire()->setAttaque(getProprietaire()->getAttaque()-attaque);
     getProprietaire()->setForce(getProprietaire()->getForce()-force);
     getProprietaire()->setHabilite(getProprietaire()->getHabilite()-habilite);
-    getProprietaire()->retirerObjet(this);
     retirerProprietaire();
 }

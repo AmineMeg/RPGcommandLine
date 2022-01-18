@@ -9,8 +9,8 @@ private:
     int attaque;
 public:
     Arme(string nom,int fo,int ha,int att);
-    void ajoutArme(Personnage * proprietaire);
-    void retirerArme();
+    void ajouter(Personnage * proprietaire);
+    void retirer();
 };
 
 
