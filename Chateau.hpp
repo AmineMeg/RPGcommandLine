@@ -21,7 +21,7 @@ using namespace std;
 struct Salle{
     string nom;
     vector<Personnage*> personnagesPresent;
-    vector<Objet> objetsPresent;
+    vector<Objet*> objetsPresent;
     Salle* droite;
     Salle* gauche;
     Salle* haut;
@@ -39,6 +39,7 @@ public:
     Chateau (int nbSalles, vector<Personnage*> listePersonnage);
     ~Chateau ();
     vector<Salle*> getListeSalle();
+    void ajouterObjet();
     Salle* creerNoeud (vector<Personnage*> listePerso, int check);
     void supprimer ();
     void afficher ();

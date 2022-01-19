@@ -5,7 +5,6 @@
 #include "Guerriers.hpp"
 #include "Moines.hpp"
 Jeu::Jeu(){
-
 }
 
 void Jeu::creationJoueur(){
@@ -79,35 +78,76 @@ void Jeu::partie (){
         choixNbSalle++;
     }
     Chateau * chateau = new Chateau (choixNbSalle, listePerso);
+    for (int i=0;i<listePerso.size();i++){
+            cout <<listePerso.at(i)<<endl<<endl;
+    }
     while (enCours){
         //chateau->afficher();
-        for (int i=0;i<listePerso.size();i++){
-            cout <<listePerso.at(i)<<endl<<endl;
-        }
+        
         for(int i=0;i<listePerso.size();i++){
             if(listePerso.at(i)==joueur){
                 int action;
-                cout<<"Vous pouvez :(1 action = 1 tour) \n 1-changer de piece \n 2-rammasser un objet \n 3-utiliser une Potion \n 4-Rien "<<endl;
+                cout<<"Vous pouvez :(1 action = 1 tour) \n 1-changer de piece \n 2-rammasser un objet \n 3-utiliser un objet \n 4-deposer Objet \n 5-Rien "<<endl;
                 cin >>action;
                 if(action==1)
                     changerDeSalleJoueur(chateau);
                 else if(action ==3){
-                    for(int i =0;i<joueur->getSac().size();i++){
-                        if(joueur->getSac().at(i)->getNom()=="Potion de soin"){
-                            cout << "Vous avez une potion de soin, vous l'utilisez !"<<endl;
-                            joueur->getSac().at(i)->utiliser();
-                        }else{
-                            cout<<"Vous n'avez pas de potions !"<<endl;
-                        }
-                    }
+                    utiliserObjet();
+                }else if(action == 2){
+                    ramasserObjet(chateau);
+                }else if(action==4){
+                    deposerObjet(chateau);
                 }
             }
-            /*else
-                changerSalleBot(chateau,listePerso.at(i));*/
+            else
+                changerSalleBot(chateau,listePerso.at(i));
         }
         checkCombat(chateau);
     
        }
+}
+
+void Jeu::deposerObjet(Chateau * cha){
+    cout<<"Deposer quel Objet ?"<<endl;
+    for(int i=0;i<joueur->getSac().size();i++){
+        cout<<i+1<<"- "<<joueur->getSac().at(i)->getNom();
+    }
+    int rep;
+    cin >>rep;
+    cha->getListeSalle()[joueur->getPosition()]->objetsPresent.push_back(joueur->getSac().at(rep-1));
+    joueur->retirerObjet(joueur->getSac().at(rep-1));
+
+}
+void Jeu::utiliserObjet(){
+    cout<<"Quel Objet Utiliser ?"<<endl;
+    for(int i=0;i<joueur->getSac().size();i++){
+        cout<<i+1<<"- "<<joueur->getSac().at(i)->getNom();
+    }
+    int rep;
+    cin >>rep;
+    cout<<joueur->getSac().at(rep-1)->getNom()<<endl;
+    joueur->getSac().at(rep-1)->utiliser();
+}
+
+void Jeu::ramasserObjet(Chateau * cha){
+    cout<<"Quel objet voulez vous prendre"<<endl;
+    for(int i =0;i<cha->getListeSalle()[joueur->getPosition()]->objetsPresent.size();i++){
+        cout<<"-"<<i+1<<" "<<cha->getListeSalle()[joueur->getPosition()]->objetsPresent.at(i)->getNom();
+    }
+    cout<<"-0 Rien"<<endl;
+    int rep;
+    cin >>rep;
+    if(rep == 0){
+
+    }else if(rep>0 && rep<=cha->getListeSalle()[joueur->getPosition()]->objetsPresent.size()){
+        if(joueur->getSac().size()<4){
+            cha->getListeSalle()[joueur->getPosition()]->objetsPresent.at(rep-1)->ajouter(joueur);
+            cha->getListeSalle()[joueur->getPosition()]->objetsPresent.erase(
+                    cha->getListeSalle()[joueur->getPosition()]->objetsPresent.begin()+rep-1);
+        }else{
+            cout <<"Sac plein"<<endl;
+        }
+    }
 }
 
 void Jeu::changerSalleBot(Chateau * chateau, Personnage * bot){
@@ -134,13 +174,13 @@ void Jeu::changerSalleBot(Chateau * chateau, Personnage * bot){
         salleDuChoix.at(3)=std::stoi(
                 chateau->getListeSalle()[bot->getPosition()]->droite->nom);
     }
-    
+    int choixAleat = rand()%choix.size();
     for (int i = 0;i < chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.size();i++){
-        if (bot == chateau->getListeSalle()[bot->getPosition()]->personnagesPresent[i] && salleDuChoix[choix.at(0)-1]!=-1){
-            cout<<salleDuChoix[choix.at(0)-1]<<endl;
+        if (bot == chateau->getListeSalle()[bot->getPosition()]->personnagesPresent[i] && salleDuChoix[choix.at(choixAleat)-1]!=-1){
+            cout<<salleDuChoix[choix.at(choixAleat)-1]<<endl;
             chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.erase(
                     chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.begin()+i);
-            bot->setPosition(salleDuChoix[choix.at(0)-1]);
+            bot->setPosition(salleDuChoix[choix.at(choixAleat)-1]);
             chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.push_back(bot);
         }
     }

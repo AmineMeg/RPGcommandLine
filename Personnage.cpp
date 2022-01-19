@@ -59,6 +59,7 @@ bool Personnage::ajouterObjet(Objet * obj){
         sac.push_back(obj);
         return true;
     }else{
+        cout<<"Le sac est plein"<<endl;
         return false;
     }
 }

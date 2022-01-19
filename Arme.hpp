@@ -11,6 +11,7 @@ public:
     Arme(string nom,int fo,int ha,int att);
     void ajouter(Personnage * proprietaire);
     void retirer();
+    void utiliser(){cout<<"ca ne fait rien"<<endl;}
     void print(ostream& where,Objet * pe) const ;
 };
 

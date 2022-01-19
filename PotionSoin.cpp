@@ -21,9 +21,11 @@ void PotionSoin::retirer(){
 }
 
 void PotionSoin::utiliser(){
+    cout<<"Utilisation Potion de soin"<<endl;
     srand((unsigned int)time(0));
     int jetDes = (rand() % 4 + 1);
     getProprietaire()->setSante(getProprietaire()->getSante()+jetDes);
+    getProprietaire()->retirerObjet(this);
     retirer();
 }
 

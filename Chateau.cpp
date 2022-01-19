@@ -4,7 +4,9 @@
 
 #include <chrono>
 #include "Chateau.hpp"
-
+#include "Arme.hpp"
+#include "Armure.h"
+#include "PotionSoin.hpp"
 bool check, check2 = false;
 
 __uint128_t g_lehmer64_state = 1337;
@@ -32,6 +34,32 @@ Chateau:: Chateau(int nbSalles, vector<Personnage*> listePersonnage): compteur (
         }
     }
     creerConnexions();
+    ajouterObjet();
+}
+
+void Chateau::ajouterObjet(){
+    Arme * arme1 = new Arme("arme 1",5,-2,1);
+    Arme * arme2 = new Arme("arme 2",5,-2,1);
+    Arme * arme3 = new Arme("arme 3",5,-2,1);
+    Armure * armure1 = new Armure("Armure 1",1,1,1);
+    Armure * armure2 = new Armure("Armure 2",1,1,1);
+    Armure * armure3 = new Armure("Armure 3",1,1,1);
+    PotionSoin * potion = new PotionSoin();
+
+    vector<Objet*> listeObjet;
+    listeObjet.push_back(arme1);
+    listeObjet.push_back(arme2);
+    listeObjet.push_back(arme3);
+    listeObjet.push_back(armure1);
+    listeObjet.push_back(armure2);
+    listeObjet.push_back(armure3);
+    listeObjet.push_back(potion);
+    srand((unsigned int)time(0));
+    for(int i=0;i<listeObjet.size();i++){
+        int pieceAleat = rand()%listeSalle.size();
+        listeSalle.at(pieceAleat)->objetsPresent.push_back(listeObjet.at(i));
+    }
+
 }
 
 // Destructeur
@@ -298,6 +326,10 @@ void Chateau :: afficher () {
         cout << "Personnage present :";
         for (int j = 0; j <listeSalle[i] -> personnagesPresent.size(); j++){
             cout << listeSalle[i] -> personnagesPresent[j] -> getNom() << " | " <<endl;
+        }
+        cout << "Objet present :";
+        for (int j = 0; j <listeSalle[i] -> objetsPresent.size(); j++){
+            cout << listeSalle[i] -> objetsPresent[j] -> getNom() << " | " <<endl;
         }
         if (listeSalle[i] -> bas != NULL){
             cout << "               bas " << listeSalle[i] -> bas  -> nom<< "\n" <<endl;

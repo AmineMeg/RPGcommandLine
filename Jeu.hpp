@@ -19,6 +19,9 @@ class Jeu {
         void creationPersonnages();
         void creationJoueur();
         void partie ();
+        void deposerObjet(Chateau * cha);
+        void ramasserObjet(Chateau * cha);
+        void utiliserObjet();
         void changerDeSalleJoueur(Chateau * chateau);
         void changerSalleBot(Chateau * chateau,Personnage * bot);
         void checkCombat(Chateau * cha);
