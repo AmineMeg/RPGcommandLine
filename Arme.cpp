@@ -26,3 +26,13 @@ void Arme::retirer(){
     getProprietaire()->setHabilite(getProprietaire()->getHabilite()-habilite);
     retirerProprietaire();
 }
+
+
+void Arme::print(ostream& where,Objet * pe){
+    where<<pe->getNom()<<endl;
+    where<<"Modifiant les statistiques"<<endl;
+    where<<"+"<<attaque<<" attaques"<<endl;
+    where<<"+"<<force<<" en forces"<<endl;
+    where<<"+"<<habilite<<" en habilite"<<endl;
+
+}

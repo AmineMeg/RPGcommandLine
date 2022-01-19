@@ -16,6 +16,12 @@ public:
     void retirerProprietaire();
     virtual void ajouter(Personnage * proprietaire) {};
     virtual void retirer() {};
+    virtual void utiliser(){};
+    virtual void print(ostream& where,Objet * pe) const = 0;
+    friend ostream& operator<<(ostream& os, Objet* ob) {
+        ob->print(os,ob);
+        return os;
+    }
 };
 
 

@@ -4,12 +4,13 @@
 class Armure : public Objet{
 private:
     int habilite;
-    int resisatnce;
+    int resistance;
     int sante;
 public:
     Armure(string nom,int res,int ha,int san);
     void ajouter(Personnage * proprietaire);
     void retirer();
+    void print(ostream& where,Objet * pe);
 };
 
 

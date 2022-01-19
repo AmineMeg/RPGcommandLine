@@ -13,12 +13,9 @@ int main( int argc, char *argv[], char *envp[] )
         cout <<j.getListePerso().at(i)<<endl;
     }
 
-  //  j.mortPersonnage(j.getListePerso().at(1));
+    j.mortPersonnage(j.getListePerso().at(1));
     for(int i=0;i<j.getListePerso().size();i++){
-        cout <<j.getListePerso().at(i)<<endl;
+        cout <<j.getListePerso().at(i)->getNom()<<endl;
     }
-
-    j.getJoueur()->getObjetAt(0);
-    cout<<j.getJoueur()<<endl;
 
 }
