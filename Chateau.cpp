@@ -86,8 +86,11 @@ void afficherVect(vector<Salle*> liste){
 void Chateau :: creerConnexions (){
     vector<Salle *> listeSalleAModifier (listeSalle.size());
     listeSalleAModifier.assign(listeSalle.begin(), listeSalle.end());
-    for (int i = compteur -1; i > 0; i--){// Pour chaque porte
+
+    for (int i = compteur -1; i > 0; i--){// Pour chaque salle
+
         Salle * selected = listeSalleAModifier[listeSalleAModifier.size()-1];
+
         if(selected -> nbPorteLibres > 0) {
             int nbPortes = lehmer64() % selected->nbPorteLibres + 1; // Choisir un nombre de portes entre 0 et 4
             listeSalleAModifier.pop_back();
@@ -112,9 +115,18 @@ void Chateau :: creerConnexions (){
                         return;
                     }
                 }
-            }
-            else {
-                return;
+            } else {
+                vector<Salle *> listeSalleAModifier (listeSalle.size());
+                bool done = false;
+                listeSalleAModifier.assign(listeSalle.begin(), listeSalle.end());
+                for (int k = 0; k < listeSalleAModifier.size() || done; k++){
+                    if (listeSalleAModifier[k]->haut == NULL ||
+                    listeSalleAModifier[k]->bas == NULL ||
+                    listeSalleAModifier[k]->gauche == NULL ||
+                    listeSalleAModifier[k]->droite == NULL ){
+                        selectPorte(selected,listeSalleAModifier[k]);
+                    }
+                }
             }
         }
     }
