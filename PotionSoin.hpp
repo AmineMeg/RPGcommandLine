@@ -7,7 +7,7 @@ class PotionSoin : public Objet{
     void ajouter(Personnage * proprietaire);
     void retirer();
     void utiliser();
-    void print(ostream& where,Objet * pe);
+    void print(ostream& where,Objet * pe) const;
     
     private:
 

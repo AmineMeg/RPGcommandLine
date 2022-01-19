@@ -28,7 +28,7 @@ void Arme::retirer(){
 }
 
 
-void Arme::print(ostream& where,Objet * pe){
+void Arme::print(ostream& where,Objet * pe) const{
     where<<pe->getNom()<<endl;
     where<<"Modifiant les statistiques"<<endl;
     where<<"+"<<attaque<<" attaques"<<endl;

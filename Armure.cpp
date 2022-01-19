@@ -26,7 +26,7 @@ void Armure::retirer(){
     retirerProprietaire();
 }
 
-void Armure::print(ostream& where,Objet * pe){
+void Armure::print(ostream& where,Objet * pe) const{
     where<<pe->getNom()<<endl;
     where<<"Modifiant les statistiques"<<endl;
     where<<"+"<<resistance<<" resistances"<<endl;

@@ -16,7 +16,7 @@ void Jeu::creationJoueur(){
     cout<<"Entrez le nom de votre champion ;)" <<endl;
     cin>> nomJoueur;
 
-    while(rep!=1 && rep!=2 & rep!=3 && rep!=4 ){
+    while(rep<1 || rep>4){
         cout<<"choisissez un personnage valable !"<<endl;
         cin>>rep;
     }
@@ -86,8 +86,21 @@ void Jeu::partie (){
         }
         for(int i=0;i<listePerso.size();i++){
             if(listePerso.at(i)==joueur){
-                
-                changerDeSalleJoueur(chateau);
+                int action;
+                cout<<"Vous pouvez :(1 action = 1 tour) \n 1-changer de piece \n 2-rammasser un objet \n 3-utiliser une Potion \n 4-Rien "<<endl;
+                cin >>action;
+                if(action==1)
+                    changerDeSalleJoueur(chateau);
+                else if(action ==3){
+                    for(int i =0;i<joueur->getSac().size();i++){
+                        if(joueur->getSac().at(i)->getNom()=="Potion de soin"){
+                            cout << "Vous avez une potion de soin, vous l'utilisez !"<<endl;
+                            joueur->getSac().at(i)->utiliser();
+                        }else{
+                            cout<<"Vous n'avez pas de potions !"<<endl;
+                        }
+                    }
+                }
             }
             /*else
                 changerSalleBot(chateau,listePerso.at(i));*/

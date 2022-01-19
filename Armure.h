@@ -10,7 +10,7 @@ public:
     Armure(string nom,int res,int ha,int san);
     void ajouter(Personnage * proprietaire);
     void retirer();
-    void print(ostream& where,Objet * pe);
+    void print(ostream& where,Objet * pe) const;
 };
 
 

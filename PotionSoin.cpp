@@ -27,7 +27,7 @@ void PotionSoin::utiliser(){
     retirer();
 }
 
-void PotionSoin::print(ostream& where,Objet * pe){
+void PotionSoin::print(ostream& where,Objet * pe) const {
     where<<"Une potion de soin"<<endl;
 
 }
