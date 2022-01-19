@@ -1,6 +1,6 @@
 #ifndef JEU_HPP_INCLUDED
 #define JEU_HPP_INCLUDED
-
+#include "Chateau.hpp"
 #include "Personnage.hpp"
 #include <iostream>
 #include <vector>
@@ -18,7 +18,8 @@ class Jeu {
         void creationPersonnages();
         void creationJoueur();
         void partie ();
-        void changerDeSalle(Chateau * chateau);
+        void changerDeSalleJoueur(Chateau * chateau);
+        void changerSalleBot(Chateau * chateau,Personnage * bot);
         void setJoueur(Personnage *perso1);
         Personnage * getJoueur();
         vector<Personnage*> getListePerso();

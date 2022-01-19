@@ -81,12 +81,62 @@ void Jeu::partie (){
     Chateau * chateau = new Chateau (choixNbSalle, listePerso);
     while (1){
         chateau->afficher();
-        changerDeSalle(chateau);
+        for(int i=0;i<listePerso.size();i++){
+            if(listePerso.at(i)==joueur)
+                changerDeSalleJoueur(chateau);
+            else
+                changerSalleBot(chateau,listePerso.at(i));
+        }
         chateau->afficher();
+       }
+}
+
+void Jeu::changerSalleBot(Chateau * chateau, Personnage * bot){
+    vector<int> choix;
+     vector<int> salleDuChoix = {-1, -1, -1, -1};
+    srand((unsigned int)time(0));
+    if (chateau->getListeSalle()[bot->getPosition()]-> haut != NULL){
+        choix.push_back(1);
+         salleDuChoix.at(0)=std::stoi(
+                chateau->getListeSalle()[bot->getPosition()]->haut->nom);
+    }
+    if (chateau->getListeSalle()[bot->getPosition()]-> bas != NULL){
+        choix.push_back(2);
+        salleDuChoix.at(1)=std::stoi(
+                chateau->getListeSalle()[bot->getPosition()]->bas->nom);
+    }
+    if (chateau->getListeSalle()[bot->getPosition()]-> gauche != NULL){
+        choix.push_back(3);
+        salleDuChoix.at(2)=std::stoi(
+                chateau->getListeSalle()[bot->getPosition()]->gauche->nom);
+    }
+    if (chateau->getListeSalle()[bot->getPosition()]-> droite != NULL){
+        choix.push_back(4);
+        salleDuChoix.at(3)=std::stoi(
+                chateau->getListeSalle()[bot->getPosition()]->droite->nom);
+    }
+    int porteAleat = (rand() % 4 + 1);
+    while (std::find(choix.begin(), choix.end(), porteAleat) == choix.end()&& salleDuChoix[porteAleat-1]!=-1){
+        cout<<bot->getNom()<<endl;
+        cout<<"test"<<endl;
+        porteAleat = (rand() % 3 + 1);
+        cout<<porteAleat<<endl;
+    
+    }
+
+    cout<< bot->getNom()<<"   "<<porteAleat<<endl;
+    for (int i = 0;i < chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.size();
+    i++){
+        if (joueur == chateau->getListeSalle()[bot->getPosition()]->personnagesPresent[i] && salleDuChoix[porteAleat-1]!=-1){
+            chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.erase(
+                    chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.begin()+i);
+            bot ->setPosition(salleDuChoix[porteAleat-1]);
+            chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.push_back(bot);
+        }
     }
 }
 
-void Jeu::changerDeSalle(Chateau * chateau){
+void Jeu::changerDeSalleJoueur(Chateau * chateau){
     cout << "Votre personnage est dans la salle " << joueur->getPosition() << endl;
     cout << "Vous pouvez aller en salle :" << endl;
     vector<int> choix;
@@ -95,29 +145,29 @@ void Jeu::changerDeSalle(Chateau * chateau){
         cout <<"   1-haut vers la salle "<<
         chateau->getListeSalle()[joueur->getPosition()]->haut->nom<<  endl;
         choix.push_back(1);
-        salleDuChoix.push_back(std::stoi(
-                chateau->getListeSalle()[joueur->getPosition()]->haut->nom));
+        salleDuChoix.at(0)=std::stoi(
+                chateau->getListeSalle()[joueur->getPosition()]->haut->nom);
     }
     if (chateau->getListeSalle()[joueur->getPosition()]-> bas != NULL){
         cout <<"   2-bas vers la salle "<<
         chateau->getListeSalle()[joueur->getPosition()]->bas->nom<<  endl;
         choix.push_back(2);
-        salleDuChoix.push_back(std::stoi(
-                chateau->getListeSalle()[joueur->getPosition()]->bas->nom));
+        salleDuChoix.at(1)=std::stoi(
+                chateau->getListeSalle()[joueur->getPosition()]->bas->nom);
     }
     if (chateau->getListeSalle()[joueur->getPosition()]-> gauche != NULL){
         cout <<"   3-gauche vers la salle "<<
         chateau->getListeSalle()[joueur->getPosition()]->gauche->nom<<  endl;
         choix.push_back(3);
-        salleDuChoix.push_back(std::stoi(
-                chateau->getListeSalle()[joueur->getPosition()]->gauche->nom));
+        salleDuChoix.at(2)=std::stoi(
+                chateau->getListeSalle()[joueur->getPosition()]->gauche->nom);
     }
     if (chateau->getListeSalle()[joueur->getPosition()]-> droite != NULL){
         cout <<"   4-droite vers la salle "<<
         chateau->getListeSalle()[joueur->getPosition()]->droite->nom<<  endl;
         choix.push_back(4);
-        salleDuChoix.push_back(std::stoi(
-                chateau->getListeSalle()[joueur->getPosition()]->droite->nom));
+        salleDuChoix.at(3)=std::stoi(
+                chateau->getListeSalle()[joueur->getPosition()]->droite->nom);
     }
     cout << "Ou voulez vous aller ?" << endl;
     int choixDuJoueur;
@@ -151,10 +201,10 @@ void Jeu::changerDeSalle(Chateau * chateau){
     for (int i = 0;
     i < chateau->getListeSalle()[joueur->getPosition()]->personnagesPresent.size();
     i++){
-        if (joueur == chateau->getListeSalle()[joueur->getPosition()]->personnagesPresent[i]){
+        if (joueur == chateau->getListeSalle()[joueur->getPosition()]->personnagesPresent[i] && salleDuChoix[choixDuJoueur-1]!=-1){
             chateau->getListeSalle()[joueur->getPosition()]->personnagesPresent.erase(
                     chateau->getListeSalle()[joueur->getPosition()]->personnagesPresent.begin()+i);
-            joueur ->setPosition(salleDuChoix[choixDuJoueur]);
+            joueur ->setPosition(salleDuChoix[choixDuJoueur-1]);
             chateau->getListeSalle()[joueur->getPosition()]->personnagesPresent.push_back(joueur);
         }
     }
