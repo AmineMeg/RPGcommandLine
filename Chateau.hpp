@@ -13,11 +13,15 @@
 #include <time.h>
 #include <algorithm>
 #include <random>
+#include "Objet.hpp"
+#include "Personnage.hpp"
 
 using namespace std;
 
 struct Salle{
     string nom;
+    vector<Personnage*> personnagesPresent;
+    vector<Objet> objetsPresent;
     Salle* droite;
     Salle* gauche;
     Salle* haut;
@@ -31,11 +35,11 @@ private:
     vector<Salle*> listeSalle;
     int compteur;
     Salle* CreerNoeud ();
-
 public:
-    Chateau (int nbSalles);
+    Chateau (int nbSalles, vector<Personnage*> listePersonnage);
     ~Chateau ();
-    Salle* creerNoeud ();
+    vector<Salle*> getListeSalle();
+    Salle* creerNoeud (vector<Personnage*> listePerso, int check);
     void supprimer ();
     void afficher ();
     int taille () const;

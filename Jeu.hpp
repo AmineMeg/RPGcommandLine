@@ -17,6 +17,8 @@ class Jeu {
         Jeu();
         void creationPersonnages();
         void creationJoueur();
+        void partie ();
+        void changerDeSalle(Chateau * chateau);
         void setJoueur(Personnage *perso1);
         Personnage * getJoueur();
         vector<Personnage*> getListePerso();
