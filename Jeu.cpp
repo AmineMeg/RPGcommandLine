@@ -79,21 +79,27 @@ void Jeu::partie (){
         choixNbSalle++;
     }
     Chateau * chateau = new Chateau (choixNbSalle, listePerso);
-    while (1){
-        chateau->afficher();
-        for(int i=0;i<listePerso.size();i++){
-            if(listePerso.at(i)==joueur)
-                changerDeSalleJoueur(chateau);
-            else
-                changerSalleBot(chateau,listePerso.at(i));
+    while (enCours){
+        //chateau->afficher();
+        for (int i=0;i<listePerso.size();i++){
+            cout <<listePerso.at(i)<<endl<<endl;
         }
-        chateau->afficher();
+        for(int i=0;i<listePerso.size();i++){
+            if(listePerso.at(i)==joueur){
+                
+                changerDeSalleJoueur(chateau);
+            }
+            /*else
+                changerSalleBot(chateau,listePerso.at(i));*/
+        }
+        checkCombat(chateau);
+    
        }
 }
 
 void Jeu::changerSalleBot(Chateau * chateau, Personnage * bot){
     vector<int> choix;
-     vector<int> salleDuChoix = {-1, -1, -1, -1};
+    vector<int> salleDuChoix = {-1, -1, -1, -1};
     srand((unsigned int)time(0));
     if (chateau->getListeSalle()[bot->getPosition()]-> haut != NULL){
         choix.push_back(1);
@@ -115,24 +121,51 @@ void Jeu::changerSalleBot(Chateau * chateau, Personnage * bot){
         salleDuChoix.at(3)=std::stoi(
                 chateau->getListeSalle()[bot->getPosition()]->droite->nom);
     }
-    int porteAleat = (rand() % 4 + 1);
-    while (std::find(choix.begin(), choix.end(), porteAleat) == choix.end()&& salleDuChoix[porteAleat-1]!=-1){
-        cout<<bot->getNom()<<endl;
-        cout<<"test"<<endl;
-        porteAleat = (rand() % 3 + 1);
-        cout<<porteAleat<<endl;
     
-    }
-
-    cout<< bot->getNom()<<"   "<<porteAleat<<endl;
-    for (int i = 0;i < chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.size();
-    i++){
-        if (joueur == chateau->getListeSalle()[bot->getPosition()]->personnagesPresent[i] && salleDuChoix[porteAleat-1]!=-1){
+    for (int i = 0;i < chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.size();i++){
+        if (bot == chateau->getListeSalle()[bot->getPosition()]->personnagesPresent[i] && salleDuChoix[choix.at(0)-1]!=-1){
+            cout<<salleDuChoix[choix.at(0)-1]<<endl;
             chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.erase(
                     chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.begin()+i);
-            bot ->setPosition(salleDuChoix[porteAleat-1]);
+            bot->setPosition(salleDuChoix[choix.at(0)-1]);
             chateau->getListeSalle()[bot->getPosition()]->personnagesPresent.push_back(bot);
         }
+    }
+
+}
+
+void Jeu::checkCombat(Chateau * cha){
+
+    for(int i=0;i<cha->getListeSalle().size();i++){
+        if(cha->getListeSalle().at(i)->personnagesPresent.size()>1){
+            cout<<"il y a combat "<<endl;
+            vector<Personnage*> combattants = cha->getListeSalle().at(i)->personnagesPresent;
+            for(int j=0;j<combattants.size();j++){
+                for(int l=j+1;l<combattants.size();l++){
+                    if(combattants.at(j)->getHabilite()<combattants.at(l)->getHabilite()){
+                        combat(combattants.at(l),combattants.at(j));
+                        if(combattants.at(j)->getSante()>0)
+                            combat(combattants.at(j),combattants.at(l));
+                    }
+                    else{
+                    combat(combattants.at(j),combattants.at(l));
+                    if(combattants.at(l)->getSante()>0)
+                            combat(combattants.at(l),combattants.at(j));
+                    }
+                    checkMort(cha);
+                    combattants = cha->getListeSalle().at(i)->personnagesPresent;
+                }
+            }
+            
+        }
+    }
+
+}
+
+void Jeu::checkMort(Chateau * cha){
+    for(int i=0;i<listePerso.size();i++){
+        if(listePerso.at(i)->getSante()<=0)
+            mortPersonnage(listePerso.at(i),cha);
     }
 }
 
@@ -228,7 +261,7 @@ void Jeu::combat(Personnage * pers1, Personnage * perso2){
         cout<<"jet des "<<jetDes<<endl;
         if(jetDes>=resAttendu){
             perso2->setSante(perso2->getSante()-1);
-            cout<<"attaque"<<endl;
+            cout<<pers1->getNom()<<" inflige des dégats à "<<perso2->getNom()<<endl;
         }else{
             cout<<"esquive"<<endl;
         }
@@ -248,13 +281,29 @@ vector<Personnage*> Jeu::getListePerso(){
     return listePerso;
 }
 
-void Jeu::mortPersonnage(Personnage * pe){
+void Jeu::mortPersonnage(Personnage * pe,Chateau * chateau){
+
+    cout<<"mort"<<endl;
     for(int i=0;i<listePerso.size();i++){
         if(pe == listePerso.at(i)){
             delete listePerso.at(i);
             listePerso.erase(listePerso.begin()+i);
+            if(pe==joueur){
+                joueur=nullptr;
+                enCours=false;
+                cout<<"VOUS ETES MORT !!!!!"<<endl;
+            }else if(listePerso.size()==1){
+                enCours=false;
+                cout<<"VOUS AVEZ GAGNE !!!!!"<<endl;
+            }
         }
     }
-    //Ajouter drop item perso dans la piece !!!
+
+    for (int i = 0;i < chateau->getListeSalle()[pe->getPosition()]->personnagesPresent.size();i++){
+        if (pe == chateau->getListeSalle()[pe->getPosition()]->personnagesPresent[i]){
+            chateau->getListeSalle()[pe->getPosition()]->personnagesPresent.erase(
+                    chateau->getListeSalle()[pe->getPosition()]->personnagesPresent.begin()+i);
+        }
+    }
 }
 
