@@ -15,14 +15,16 @@ class Personnage{
         int sante;
         int habilite;
         vector<Objet*> sac;
-
+        int position;
     public:
         Personnage(int sante,int hab,int fo,int res,int att,string nom);
+        void setPosition(int pos);
         void setAttaque(int att);
         void setForce(int fo);
         void setHabilite(int ha);
         void setResistance(int re);
         void setSante(int s);
+        int getPosition();
         string getNom();
         int getSante();
         int getHabilite();

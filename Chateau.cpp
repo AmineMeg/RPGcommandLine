@@ -15,10 +15,21 @@ uint64_t lehmer64() {
 }
 
 // Constructeur
-Chateau:: Chateau(int nbSalles): compteur (0) {
-    for(int i = 0; i < nbSalles; i++){
-
-        creerNoeud();
+Chateau:: Chateau(int nbSalles, vector<Personnage*> listePersonnage): compteur (0) {
+    vector<Personnage*> listePersonnageAModifier {};
+    listePersonnageAModifier.assign(listePersonnage.begin(), listePersonnage.end());
+    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+    std::shuffle(std::begin(listePersonnageAModifier),
+                 std::end(listePersonnageAModifier), rng);
+    cout << "Taille liste perso : " << listePersonnageAModifier.size() << endl;
+    for(int i = 0; i < nbSalles; i++) {
+        if ((i == nbSalles / 4) || (i == ((nbSalles * 2 )/ 4)) || (i == ((nbSalles * 3) / 4)) ||
+            (i == (nbSalles) -1)) {
+            creerNoeud(listePersonnageAModifier, 1);
+            listePersonnageAModifier.pop_back();
+        } else {
+            creerNoeud(listePersonnageAModifier, 0);
+        }
     }
     creerConnexions();
 }
@@ -35,13 +46,17 @@ Chateau :: ~Chateau ()
     }
 }
 
-Salle* Chateau :: creerNoeud (){
+Salle* Chateau :: creerNoeud (vector<Personnage*> listePerso, int check){
     Salle* temp = new Salle;
     temp -> nom = to_string(compteur);
     temp -> haut = NULL;
     temp -> bas = NULL;
     temp -> gauche = NULL;
     temp -> droite = NULL;
+    if(check == 1){
+        temp->personnagesPresent.push_back(listePerso[listePerso.size()-1]);
+        listePerso[listePerso.size()-1] -> setPosition(compteur);
+    }
     listeSalle.push_back(temp);
     compteur++;
     return temp;
@@ -71,48 +86,27 @@ void afficherVect(vector<Salle*> liste){
 void Chateau :: creerConnexions (){
     vector<Salle *> listeSalleAModifier (listeSalle.size());
     listeSalleAModifier.assign(listeSalle.begin(), listeSalle.end());
-    cout << "Sous liste bien crée" << endl;
     for (int i = compteur -1; i > 0; i--){// Pour chaque porte
-
         Salle * selected = listeSalleAModifier[listeSalleAModifier.size()-1];
-        cout << "\n\n\n\nPorte = " << selected -> nom << endl;
-        cout << "Selected passed" <<  endl;
         if(selected -> nbPorteLibres > 0) {
             int nbPortes = lehmer64() % selected->nbPorteLibres + 1; // Choisir un nombre de portes entre 0 et 4
-            cout << "nbPortesLibres passed" << endl;
-            cout << "\n \n Size before :" << listeSalleAModifier.size() << endl;
-            afficherVect(listeSalleAModifier);
             listeSalleAModifier.pop_back();
-            cout << "\n \n Size after :" << listeSalleAModifier.size() << endl;
             if (listeSalleAModifier.size() > 0) {
-                afficherVect(listeSalleAModifier);
                 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
                 std::shuffle(std::begin(listeSalleAModifier),
                              std::end(listeSalleAModifier), rng);
-                cout << "Random crée" << endl;
                 int j = 0;
-                cout << "\nNB portes DITES LIBRES :\n" << selected->nbPorteLibres << endl;
-                cout << "NB portesLibres num : " << nbPortes << endl;
-                while (j < nbPortes && listeSalleAModifier.size() - 1 - j > 0 && selected->nbPorteLibres != 0) {
-                    cout << " Porte j = " << j << endl;
+                while (j < nbPortes && listeSalleAModifier.size() - 1  > 0 && selected->nbPorteLibres != 0) {
                     while (listeSalleAModifier[listeSalleAModifier.size() - 1 - j]->nbPorteLibres == 0) {
                         listeSalleAModifier.pop_back();
-                        cout << "check if it's free " << endl;
                         if (listeSalleAModifier.size() - 1 - j <= 0) {
                             return;
                         }
                     }
                     if (listeSalleAModifier.size() - 1 - j > 0) {
-                        cout << "go selectPorte" << endl;
-                        cout << "SALLE 1 : " << selected->nom << endl;
-                        cout << "SALLE 2 :" << listeSalleAModifier[listeSalleAModifier.size() - 1 - j]->nom
-                             << " position dans la liste "
-                             << listeSalleAModifier.size() - j << endl;
-                        afficherVect(listeSalleAModifier);
                         selectPorte(selected, listeSalleAModifier[listeSalleAModifier.size() - 1 - j]);
                         check = false;
                         check2 = false;
-                        cout << "selectPorteDone \n check :" << listeSalleAModifier.size() - 1 - j << endl;
                         j++;
                     } else {
                         return;
@@ -135,9 +129,7 @@ void Chateau :: selectPorte(Salle * salle, Salle * nextSalle){
                     selectPorte(salle, nextSalle);
                     break;
                 } else {
-                    cout << "Affectation 1 haut" << endl;
                     salle->haut = nextSalle;
-                    cout <<"fait"<< endl;
                     selectPorte2(nextSalle, salle);
                     salle->nbPorteLibres--;
                     check = true;
@@ -151,9 +143,7 @@ void Chateau :: selectPorte(Salle * salle, Salle * nextSalle){
                     selectPorte(salle, nextSalle);
                     break;
                 } else {
-                    cout << "Affectation 1 bas" << endl;
                     salle->bas = nextSalle;
-                    cout <<"fait"<< endl;
                     selectPorte2(nextSalle, salle);
                     salle->nbPorteLibres--;
                     check = true;
@@ -167,9 +157,7 @@ void Chateau :: selectPorte(Salle * salle, Salle * nextSalle){
                     selectPorte(salle, nextSalle);
                     break;
                 } else {
-                    cout << "Affectation 1 gauche" << endl;
                     salle->gauche = nextSalle;
-                    cout <<"fait"<< endl;
                     salle->nbPorteLibres--;
                     selectPorte2(nextSalle, salle);
                     check = true;
@@ -183,9 +171,7 @@ void Chateau :: selectPorte(Salle * salle, Salle * nextSalle){
                     selectPorte(salle, nextSalle);
                     break;
                 } else {
-                    cout << "Affectation 1 droite" << endl;
                     salle->droite = nextSalle;
-                    cout <<"fait"<< endl;
                     selectPorte2(nextSalle, salle);
                     salle->nbPorteLibres--;
                     check = true;
@@ -199,7 +185,6 @@ void Chateau :: selectPorte(Salle * salle, Salle * nextSalle){
 }
 void Chateau :: selectPorte2(Salle * salle, Salle * nextSalle){
     int choix = lehmer64() %4 + 1;
-    cout<<"tentative affect2"<< endl;
     switch (choix) {
         case 1:
             if (check2 == false) {
@@ -207,10 +192,7 @@ void Chateau :: selectPorte2(Salle * salle, Salle * nextSalle){
                     selectPorte2(salle, nextSalle);
                     break;
                 } else {
-                    cout << "Affectation 2 haut" << endl;
                     salle->haut = nextSalle;
-                    cout << "ICCI " << salle -> haut -> nom << endl;
-                    cout << nextSalle -> nom << "\n"<< endl;
                     salle->nbPorteLibres--;
                     check2 = true;
                     break;
@@ -223,7 +205,6 @@ void Chateau :: selectPorte2(Salle * salle, Salle * nextSalle){
                     selectPorte2(salle, nextSalle);
                     break;
                 } else {
-                    cout << "Affectation 2 bas" << endl;
                     salle->bas = nextSalle;
                     salle->nbPorteLibres--;
                     check2 = true;
@@ -237,7 +218,6 @@ void Chateau :: selectPorte2(Salle * salle, Salle * nextSalle){
                     selectPorte2(salle, nextSalle);
                     break;
                 } else {
-                    cout << "Affectation 2 gauche" << endl;
                     salle->gauche = nextSalle;
                     salle->nbPorteLibres--;
                     check2 = true;
@@ -251,7 +231,6 @@ void Chateau :: selectPorte2(Salle * salle, Salle * nextSalle){
                     selectPorte2(salle, nextSalle);
                     break;
                 } else {
-                    cout << "Affectation 2 droite" << endl;
                     salle->droite = nextSalle;
                     salle->nbPorteLibres--;
                     check2 = true;
@@ -304,6 +283,10 @@ void Chateau :: afficher () {
             cout << "cas 5" << endl;
             cout << " BUUUUUUUUUUGGGGG " << endl;
         }
+        cout << "Personnage present :";
+        for (int j = 0; j <listeSalle[i] -> personnagesPresent.size(); j++){
+            cout << listeSalle[i] -> personnagesPresent[j] -> getNom() << " | " <<endl;
+        }
         if (listeSalle[i] -> bas != NULL){
             cout << "               bas " << listeSalle[i] -> bas  -> nom<< "\n" <<endl;
         } else {
@@ -314,4 +297,9 @@ void Chateau :: afficher () {
 
 int Chateau :: taille () const{
     return compteur;
+}
+
+
+vector<Salle*> Chateau::getListeSalle(){
+    return listeSalle;
 }

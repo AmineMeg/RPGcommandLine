@@ -8,7 +8,9 @@ Personnage::Personnage(int sante,int hab,int fo,int res,int att,string nom){
     resistance=res;
     attaque=att;
 }
-
+void Personnage::setPosition(int pos){
+    position=pos;
+}
 void Personnage::setAttaque(int att){
     attaque=att;
 }
@@ -21,12 +23,14 @@ void Personnage::setHabilite(int ha){
 void Personnage::setResistance(int re){
     resistance=re;
 }
-
 void Personnage::setSante(int s){
     sante=s;
 }
 string Personnage::getNom(){
     return nom;
+}
+int Personnage::getPosition(){
+    return position;
 }
 int Personnage::getSante(){
     return sante;
