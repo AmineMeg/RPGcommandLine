@@ -26,6 +26,12 @@ void Personnage::setResistance(int re){
 void Personnage::setSante(int s){
     sante=s;
 }
+void Personnage::setClasse(string newClasse){
+    classe=newClasse;
+}
+string Personnage::getClasse() {
+    return classe;
+}
 string Personnage::getNom(){
     return nom;
 }

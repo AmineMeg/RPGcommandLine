@@ -39,6 +39,7 @@ public:
     Chateau (int nbSalles, vector<Personnage*> listePersonnage);
     ~Chateau ();
     vector<Salle*> getListeSalle();
+    bool securiteVerif();
     void ajouterObjet();
     Salle* creerNoeud (vector<Personnage*> listePerso, int check);
     void supprimer ();

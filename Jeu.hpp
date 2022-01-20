@@ -6,6 +6,8 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
 using namespace std;
 
 class Jeu {
@@ -19,6 +21,12 @@ class Jeu {
         void creationPersonnages();
         void creationJoueur();
         void partie ();
+        int introduction();
+        void printAmazone();
+        void printGuerrier();
+        void printSorciere();
+        void printMoine();
+        void printSalle(Chateau * cha);
         void deposerObjet(Chateau * cha);
         void affichage();
         void ramasserObjet(Chateau * cha);

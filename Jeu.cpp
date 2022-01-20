@@ -8,55 +8,71 @@ Jeu::Jeu(){
 }
 
 void Jeu::creationJoueur(){
-    cout<<"Vous avec le choix entre 4 classes :\n 1- Le Guerrier \n 2- Le Mage \n 3- La Sorciere\n 4- L'Amazone"<<endl;
+    cout << "---------------- CHOIX DU PERSONNAGE --------------" << endl;
+    cout<<"Vous avec le choix entre 4 classes :\n 1- Le Guerrier, fort et un idiot \n"
+          " 2- Le Moine pas fort, mais gentil \n "
+          "3- La Sorciere, vil et intellieng\n "
+          "4- L'Amazone, farouche et determinée "<<endl;
     int rep;
     cin>>rep;
-    string nomJoueur;
-    cout<<"Entrez le nom de votre champion ;)" <<endl;
-    cin>> nomJoueur;
 
     while(rep<1 || rep>4){
         cout<<"choisissez un personnage valable !"<<endl;
         cin>>rep;
     }
     if(rep==4){
+         string nomJoueur;
+         cout<<"Entrez le nom de votre champion ;)" <<endl;
+         cin>> nomJoueur;
          Amazones * am = new Amazones(nomJoueur);
-         cout<<"sante "<<am->getSante();
          joueur=am;
          listePerso.push_back(am);
          Guerriers * gu = new Guerriers("bot1");
          Moines * mo = new Moines("bot2");
          Sorcieres * so = new Sorcieres("bot3");
+         cout <<"Vous avez choisit d'etre une AMAZONE !" << endl;
          listePerso.push_back(gu);
          listePerso.push_back(mo);
          listePerso.push_back(so);
     }else if(rep == 3){
+        string nomJoueur;
+        cout<<"Entrez le nom de votre champion ;)" <<endl;
+        cin>> nomJoueur;
         Sorcieres * so = new Sorcieres(nomJoueur);
         joueur=so;
         listePerso.push_back(so);
         Guerriers * gu = new Guerriers("bot1");
         Moines * mo = new Moines("bot2");
         Amazones * am = new Amazones("bot3");
+        cout <<"Vous avez choisit d'etre une SORCIERE !" << endl;
         listePerso.push_back(gu);
         listePerso.push_back(mo);
         listePerso.push_back(am);
     }else if(rep==2){
+        string nomJoueur;
+        cout<<"Entrez le nom de votre champion ;)" <<endl;
+        cin>> nomJoueur;
         Moines * mo = new Moines(nomJoueur);
         joueur=mo;
         listePerso.push_back(mo);
         Guerriers * gu = new Guerriers("bot1");
         Sorcieres * so = new Sorcieres("bot2");
         Amazones * am = new Amazones("bot3");
+        cout <<"Vous avez choisit d'etre un MOINES....serieux ?!" << endl;
         listePerso.push_back(gu);
         listePerso.push_back(so);
         listePerso.push_back(am);
     }else{
+        string nomJoueur;
+        cout<<"Entrez le nom de votre champion ;)" <<endl;
+        cin>> nomJoueur;
         Guerriers * gu = new Guerriers(nomJoueur);
         joueur=gu;
         listePerso.push_back(gu);
         Moines * mo = new Moines("bot1");
         Sorcieres * so = new Sorcieres("bot2");
         Amazones * am = new Amazones("bot3");
+        cout <<"Vous avez choisit d'etre un GUERRIER!" << endl;
         listePerso.push_back(mo);
         listePerso.push_back(so);
         listePerso.push_back(am);
@@ -64,93 +80,152 @@ void Jeu::creationJoueur(){
 
 }
 
+int Jeu::introduction(){
+    cout <<"   /\\                                                        /\\" << endl;
+    cout <<"  |  |                                                      |  |" << endl;
+    cout <<" /----\\                                                    /----\\" << endl;
+    cout <<"[______]                                                  [______]" << endl;
+    cout <<" |    |         _____                        _____         |    |" << endl;
+    cout <<" |[]  |        [     ]                      [     ]        |  []|" << endl;
+    cout <<" |    |       [_______][ ][ ][ ][][ ][ ][ ][_______]       |    |" << endl;
+    cout <<" |    [ ][ ][ ]|     |  ,----------------,  |     |[ ][ ][ ]    |" << endl;
+    cout <<" |             |     |/'    ____..____    '\\|     |             |" << endl;
+    cout <<" \\  []        |     |    /'    ||    '\\    |     |        []  /" << endl;
+    cout <<"   |      []   |     |   |o     ||     o|   |     |  []       |" << endl;
+    cout <<"   |           |  _  |   |     _||_     |   |  _  |           |" << endl;
+    cout <<"   |   []      | (_) |   |    (_||_)    |   | (_) |       []  |" << endl;
+    cout <<"   |           |     |   |     (||)     |   |     |           |" << endl;
+    cout <<"   |           |     |   |      ||      |   |     |           |" << endl;
+    cout <<" /''           |     |   |o     ||     o|   |     |           ''\\" << endl;
+    cout <<"[_____________[_______]--'------''------'--[_______]_____________]" << endl;
+    cout <<"" << endl;
 
-void Jeu::partie (){
-    creationJoueur();
+    cout <<"--------------------------------------------------------------------------" << endl;
+    cout <<"|                 BIENVENUE DANS LE CHATEAU DU MAGE SDF                  |" << endl;
+    cout <<"--------------------------------------------------------------------------\n\n\n" << endl;
 
-    cout << "veuillez choisir le nombre de salles voulus (entre 10 et 100)" << endl;
+    cout<<"-----------------------------PARAMETRAGE---------------------------------\n" << endl;
+    cout << "Nombre de salles voulus dans le chateau ? (entre 10 et 100)" << endl;
     int choixNbSalle = 0;
     cin >> choixNbSalle;
-    while (choixNbSalle <= 10 && choixNbSalle>101){
-        cout << "Op op op non non non monsieur, on a dit entre 10 et 100" << endl;
+    cout << "" <<endl;
+
+    while (choixNbSalle <= 9 || choixNbSalle>101){
+        cout << "/!\\ on a dit entre 10 et 100 /!\\" << endl;
         cin >> choixNbSalle;
+        cout << "" <<endl;
     }
-    if (choixNbSalle % 2 == 0){
-        choixNbSalle++;
+    return choixNbSalle;
+}
+
+int menuAction(){
+    cout <<"________________________________________\n"
+           "|*****************MENU*****************|\n"
+           "|Vous pouvez :(1 action = 1 tour)      |\n"
+           "| 1-changer de piece                   |\n"
+           "| 2-rammasser un objet                 |\n"
+           "| 3-utiliser un objet                  |\n"
+           "| 4-deposer Objet                      |\n"
+           "| 5-Rien                               |\n"
+           "|______________________________________|" << endl;
+    int action;
+    cin >> action;
+    return action;
+}
+
+void Jeu::partie () {
+    int choixNbSalle = introduction();
+    creationJoueur();
+    Chateau *chateau = new Chateau(choixNbSalle, listePerso);
+    while (chateau->securiteVerif() != true) {
+        chateau = new Chateau(choixNbSalle, listePerso);
     }
-    Chateau * chateau = new Chateau (choixNbSalle, listePerso);
-    for (int i=0;i<listePerso.size();i++){
-            cout <<listePerso.at(i)<<endl<<endl;
-    }
-    while (enCours){
-        //chateau->afficher();
-        
-        for(int i=0;i<listePerso.size();i++){
-            if(listePerso.at(i)==joueur){
-                int action;
-                cout<<"Vous pouvez :(1 action = 1 tour) \n 1-changer de piece \n 2-rammasser un objet \n 3-utiliser un objet \n 4-deposer Objet \n 5-Rien "<<endl;
-                cin >>action;
-                if(action==1)
-                    changerDeSalleJoueur(chateau);
-                else if(action ==3){
-                    utiliserObjet();
-                }else if(action == 2){
-                    ramasserObjet(chateau);
-                }else if(action==4){
-                    deposerObjet(chateau);
+    while (enCours) {
+        for (int i = 0; i < listePerso.size(); i++) {
+            if (listePerso.at(i) == joueur) {
+                if (joueur->getClasse().compare("Amazones") == 0) {
+                    printAmazone();
                 }
+                if (joueur->getClasse().compare("Guerriers") == 0) {
+                    printGuerrier();
+                }
+                if (joueur->getClasse().compare("Moines") == 0) {
+                    printMoine();
+                }
+                if (joueur->getClasse().compare("Sorcieres") == 0) {
+                    printSorciere();
+                }
+                printSalle(chateau);
+                int action = menuAction();
+                if (action == 1)
+                    changerDeSalleJoueur(chateau);
+                else if (action == 3) {
+                    utiliserObjet();
+                } else if (action == 2) {
+                    ramasserObjet(chateau);
+                } else if (action == 4) {
+                    deposerObjet(chateau);
+                } else
+                    changerSalleBot(chateau, listePerso.at(i));
+                checkCombat(chateau);
             }
-            else
-                changerSalleBot(chateau,listePerso.at(i));
         }
-        checkCombat(chateau);
-    
-       }
+    }
 }
 
 void Jeu::deposerObjet(Chateau * cha){
-    cout<<"Deposer quel Objet ?"<<endl;
+    cout<<"--------------->Quel objet voulez vous deposer?"<<endl;
     for(int i=0;i<joueur->getSac().size();i++){
-        cout<<i+1<<"- "<<joueur->getSac().at(i)->getNom();
+        cout<< "             "<<i+1<<"- "<<joueur->getSac().at(i)->getNom();
     }
+    cout << "           0- Rien" << endl;
     int rep;
     cin >>rep;
     while(rep<0 || rep>joueur->getSac().size()){
-        cout<<"choisissez un objet valable"<<endl;
+        cout<<"/!\\Choississez un objet valable/!\\"<<endl;
         cin>>rep;
     }
-    cha->getListeSalle()[joueur->getPosition()]->objetsPresent.push_back(joueur->getSac().at(rep-1));
-    joueur->retirerObjet(joueur->getSac().at(rep-1));
+    if (rep == 0) {
+        cout <<"Non pas interessé"<<endl;
+    } else {
+        cha->getListeSalle()[joueur->getPosition()]->objetsPresent.push_back(joueur->getSac().at(rep-1));
+        joueur->retirerObjet(joueur->getSac().at(rep-1));
+    }
 
 }
-void Jeu::utiliserObjet(){
-    cout<<"Quel Objet Utiliser ?"<<endl;
-    for(int i=0;i<joueur->getSac().size();i++){
-        cout<<i+1<<"- "<<joueur->getSac().at(i)->getNom();
+void Jeu::utiliserObjet() {
+    cout << "--------------->Quel Objet Utiliser ?" << endl;
+    for (int i = 0; i < joueur->getSac().size(); i++) {
+        cout << "             " << i + 1 << "- " << joueur->getSac().at(i)->getNom();
     }
+    cout << "           0- Rien" << endl;
     int rep;
-    cin >>rep;
-    while(rep<0 || rep>joueur->getSac().size()){
-        cout<<"choisissez un objet valable"<<endl;
-        cin>>rep;
+    cin >> rep;
+    while (rep < 0 || rep > joueur->getSac().size()) {
+        cout<<"/!\\Choississez un objet valable/!\\"<<endl;
+        cin >> rep;
     }
-    joueur->getSac().at(rep-1)->utiliser();
+    if (rep == 0) {
+        cout <<"Non pas interessé"<<endl;
+    } else {
+        joueur->getSac().at(rep - 1)->utiliser();
+    }
 }
 
 void Jeu::ramasserObjet(Chateau * cha){
-    cout<<"Quel objet voulez vous prendre"<<endl;
+    cout<<"--------------->Quel objet voulez vous prendre"<<endl;
     for(int i =0;i<cha->getListeSalle()[joueur->getPosition()]->objetsPresent.size();i++){
-        cout<<"-"<<i+1<<" "<<cha->getListeSalle()[joueur->getPosition()]->objetsPresent.at(i)->getNom();
+        cout<< "           " <<i+1<<"- "<<cha->getListeSalle()[joueur->getPosition()]->objetsPresent.at(i)->getNom();
     }    
-    cout<<"-0 Rien"<<endl;
+    cout<<"           0- Rien"<<endl;
     int rep;
     cin>>rep;
     while(rep<0 || rep>cha->getListeSalle()[joueur->getPosition()]->objetsPresent.size()){
-        cout<<"choisissez un objet valable"<<endl;
+        cout<<"/!\\Choississez un objet valable/!\\"<<endl;
         cin>>rep;
     }
     if(rep == 0){
-
+        cout <<"Non pas interessé"<<endl;
     }else if(rep>0 && rep<=cha->getListeSalle()[joueur->getPosition()]->objetsPresent.size()){
         if(joueur->getSac().size()<4){
             cha->getListeSalle()[joueur->getPosition()]->objetsPresent.at(rep-1)->ajouter(joueur);
@@ -203,7 +278,9 @@ void Jeu::checkCombat(Chateau * cha){
 
     for(int i=0;i<cha->getListeSalle().size();i++){
         if(cha->getListeSalle().at(i)->personnagesPresent.size()>1){
-            cout<<"il y a combat "<<endl;
+            cout <<"________________________________________\n"
+                   "|****************COMBAT****************|\n"
+                   "|______________________________________|"<<endl;
             vector<Personnage*> combattants = cha->getListeSalle().at(i)->personnagesPresent;
             for(int j=0;j<combattants.size();j++){
                 for(int l=j+1;l<combattants.size();l++){
@@ -371,3 +448,140 @@ void Jeu::mortPersonnage(Personnage * pe,Chateau * chateau){
     }
 }
 
+
+void Jeu::printAmazone(){
+    cout <<"      _ _" << endl;
+    cout <<"     /.-.`." << endl;
+    cout <<"    //o;o\\ \\                     |Nom : "<< joueur->getNom()<< endl;
+    cout <<"    \\\\_-_/)/                     |Sante :" << joueur->getSante()<< " Attaque :"<< joueur->getAttaque()<< endl;
+    cout <<"    _`) ( _\\\\                    |Force :" << joueur->getForce()<< " Resistance :" << joueur->getResistance()<< endl;
+    cout <<" .`) '-.-' ( `.                  |Habilité : " << joueur->getHabilite() << endl;
+    cout <<"/ `/   .   \\`. \\                 " << endl;
+    cout <<"\\ \\\\___A___/_` /" << endl;
+    cout <<" '-)|)=@=(|(-'`\\" << endl;
+    cout <<"   |/\\   /\\|  )/" << endl;
+    cout <<"   /__\\_/__\\" << endl;
+    cout <<"  '---' '---'" << endl;
+    cout <<"   \\ /   \\ /" << endl;
+    cout <<"   ( )   ( )" << endl;
+    cout <<"   /_\\   /_\\" << endl;
+    cout <<"  '---' '---'" << endl;
+    cout <<"   \\ /   \\ /" << endl;
+    cout <<"   /_\\   /_\\" << endl;
+}
+void Jeu::printGuerrier(){
+    cout <<"  ,   A           {}" << endl;
+    cout <<" / \\, | ,        .--." << endl;
+    cout <<"|    =|= >      /.--.\\                           |Nom : "<< joueur->getNom()<< endl;
+    cout <<" \\ /` | `       |====|                           |Sante :" << joueur->getSante()<< " Attaque :"<< joueur->getAttaque()<< endl;
+    cout <<"  `   |         |`::`|                           |Force :" << joueur->getForce()<< " Resistance :" << joueur->getResistance()<< endl;
+    cout <<"      |     .-;`\\..../`;_.-^-._                  |Habilité : " << joueur->getHabilite() << endl;
+    cout <<"     /\\\\/  /  |...::..|`   :   `|               " << endl;
+    cout <<"     |:'\\ |   /'''::''|   .:.   |" << endl;
+    cout <<"      \\ /\\;-,/\\   ::  |..:::::..|" << endl;
+    cout <<"      |\\ <` >  >._::_.| ':::::' |" << endl;
+    cout <<"      | `\"\"`  /   ^^  |   ':'   |" << endl;
+    cout <<"      |       |       \\    :    /" << endl;
+    cout <<"      |       |        \\   :   / " << endl;
+    cout <<"      |       |___/\\___|`-.:.-`" << endl;
+    cout <<"      |        \\_ || _/    `" << endl;
+    cout <<"      |        <_ >< _>" << endl;
+    cout <<"      |        |  ||  |" << endl;
+    cout <<"      |        |  ||  |" << endl;
+    cout <<"      |       _\\.:||:./_" << endl;
+    cout <<"      |      /____/\\____\\" << endl;
+}
+
+void Jeu::printSorciere(){
+    cout <<"                       ." << endl;
+    cout <<"                        ." << endl;
+    cout <<"              /^\\     .                     |Nom : "<< joueur->getNom()<< endl;
+    cout <<"         /\\   \"V\"                           |Sante :" << joueur->getSante()<< " Attaque :"<< joueur->getAttaque()<< endl;
+    cout <<"        /__\\   I      O  o                  |Force :" << joueur->getForce()<< " Resistance :" << joueur->getResistance()<< endl;
+    cout <<"       //..\\\\  I     .                      |Habilité : " << joueur->getHabilite() << endl;
+    cout <<"       \\].`[/  I               " << endl;
+    cout <<"       /l\\/j\\  (]    .  O" << endl;
+    cout <<"      /. ~~ ,\\/I          ." << endl;
+    cout <<"      \\\\L__j^\\/I       o" << endl;
+    cout <<"       \\/--v}  I     o   ." << endl;
+    cout <<"       |    |  I   _________" << endl;
+    cout <<"       |    |  I c(`       ')o" << endl;
+    cout <<"       |    l  I   \\.     ,/" << endl;
+    cout <<"     _/j  L l\\_!  _//^---^\\\\_" << endl;
+    cout <<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+
+}
+void Jeu::printMoine(){
+    cout <<"              _,._      \n"
+           "  .||,       /_ _\\\\     \n"
+           " \\.`',/      |'L'| |    \n"
+           " = ,. =      | -,| L                   |Nom : "<< joueur->getNom()<<"\n"
+           " / || \\    ,-'\\\"/,'`.                  |Sante : " << joueur->getSante()<<" Attaque :"<< joueur->getAttaque()<< "\n"
+           "   ||     ,'   `,,. `.                 |Force : " << joueur->getForce()<<" Resistance :" << joueur->getResistance()<<"\n"
+           "   ,|____,' , ,;' \\| |                 |Habilité : " << joueur->getHabilite() <<"\n"
+           "  (3|\\    _/|/'   _| |  \n"
+           "   ||/,-''  | >-'' _,\\\\ \n"
+           "   ||'      ==\\ ,-'  ,' \n"
+           "   ||       |  V \\ ,|   \n"
+           "   ||       |    |` |   \n"
+           "   ||       |    |   \\  \n"
+           "   ||       |    \\    \\ \n"
+           "   ||       |     |    \\\n"
+           "   ||       |      \\_,-'\n"
+           "   ||       |___,,--\")_\\\n"
+           "   ||         |_|   ccc/\n"
+           "   ||        ccc/       \n" << endl;
+}
+
+void Jeu::printSalle(Chateau * cha){
+    Salle * salleDuJoueur = cha->getListeSalle()[joueur->getPosition()];
+    if (salleDuJoueur->haut != NULL) {
+        cout << "                             HAUT : " << salleDuJoueur->haut->nom<<  endl;
+        cout << "________________________|               |________________________" <<  endl;
+    } else {
+        cout << "_________________________________________________________________" << endl;
+    }
+        cout<< "|[]                                                             []|\n"
+               "|[]                                                             []|\n"
+               "|[]                                                             []|"
+        << endl;
+
+    if (salleDuJoueur->droite != NULL && salleDuJoueur->gauche != NULL) {
+        cout << "___                                                             ___" << endl;
+        cout << "GAUCHE : " << salleDuJoueur->gauche->nom
+             << "                 SALLE  "<< salleDuJoueur->nom <<"                         DROITE : "
+             << salleDuJoueur->droite->nom << endl;
+        cout << "___                                                             ___"<< endl;
+
+
+    } else if (salleDuJoueur->droite != NULL && salleDuJoueur->gauche == NULL) {
+        cout << "|[]                                                             ___" << endl;
+        cout << "|[]                     SALLE  "<< salleDuJoueur->nom <<"                              DROITE : "
+        << salleDuJoueur->droite->nom << endl;
+        cout << "|[]                                                             ___" << endl;
+
+    } else if (salleDuJoueur->droite == NULL && salleDuJoueur->gauche != NULL) {
+        cout << "___                                                             []|" << endl;
+        cout << "GAUCHE : " << salleDuJoueur->gauche->nom
+             << "                      SALLE "<< salleDuJoueur->nom <<"                        []| "
+             << endl;
+        cout << "___                                                             []|" << endl;
+    } else if (salleDuJoueur->droite == NULL && salleDuJoueur->gauche == NULL) {
+        cout << "|[]                           SALLE " << salleDuJoueur->nom << "                           []|" << endl;
+    }
+    cout << "|[]                         Objet present :                     []|" << endl;
+    for (int j = 0; j < salleDuJoueur->objetsPresent.size(); j++) {
+        cout <<"|[]                      "<<salleDuJoueur->objetsPresent[j]->getNom() << "              []| " << endl;
+    }
+    cout<< "|[]                                                             []|\n"
+           "|[]                                                             []|\n"
+           "|[]                                                             []|"
+        << endl;
+    if (salleDuJoueur->bas != NULL) {
+        cout << "|[]_____________________|   BAS : " << salleDuJoueur->bas->nom<<"    |________________________[]|" <<  endl;
+    } else {
+        cout << "|[]_____________________________________________________________[]|" << endl;
+    }
+
+    cout << "\n" << endl;
+}

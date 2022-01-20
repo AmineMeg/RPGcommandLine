@@ -9,6 +9,7 @@ using namespace std;
 class Personnage{
     private:
         string nom;
+        string classe;
         int attaque;
         int force;
         int resistance;
@@ -18,6 +19,8 @@ class Personnage{
         int position;
     public:
         Personnage(int sante,int hab,int fo,int res,int att,string nom);
+        string getClasse();
+        void setClasse(string newClasse);
         void setPosition(int pos);
         void setAttaque(int att);
         void setForce(int fo);

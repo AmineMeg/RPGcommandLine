@@ -3,6 +3,7 @@
 
 
 Guerriers::Guerriers(string nom) : Personnage(6,2,7,5,3,nom){
+    setClasse("Guerriers");
     Armure * armure = new Armure ("armure de base",2,-1,3);
     armure->ajouter(this);
 }

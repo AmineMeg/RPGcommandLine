@@ -3,6 +3,7 @@
 
 
 Sorcieres::Sorcieres(string nom) : Personnage(6,2,7,5,3,nom){
+    setClasse("Sorcieres");
     Arme * arme = new Arme ("baton de base",2,-1,3);
     arme->ajouter(this);
 }

@@ -21,7 +21,6 @@ Chateau::Chateau(int nbSalles, vector<Personnage *> listePersonnage) : compteur(
     mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
     std::shuffle(std::begin(listePersonnageAModifier),
                  std::end(listePersonnageAModifier), rng);
-    cout << "Taille liste perso : " << listePersonnageAModifier.size() << endl;
     for (int i = 0; i < nbSalles; i++) {
         if ((i == nbSalles / 4) || (i == ((nbSalles * 2) / 4)) || (i == ((nbSalles * 3) / 4)) ||
             (i == (nbSalles) - 1)) {
@@ -57,7 +56,6 @@ void Chateau::ajouterObjet() {
         int pieceAleat = rand() % listeSalle.size();
         listeSalle.at(pieceAleat)->objetsPresent.push_back(listeObjet.at(i));
     }
-    afficher();
 }
 
 // Destructeur
@@ -139,6 +137,18 @@ void Chateau::creerConnexions() {
             }
         }
     }
+}
+
+bool Chateau::securiteVerif(){
+    for (int i = 0; i < compteur; i++) {
+        if (listeSalle[i]->haut == NULL &&
+            listeSalle[i]->bas == NULL &&
+            listeSalle[i]->gauche == NULL &&
+            listeSalle[i]->droite == NULL) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void Chateau::selectPorte(Salle *salle, Salle *nextSalle) {
@@ -271,6 +281,13 @@ void Chateau::afficher() {
         return;
     }
     for (int i = 0; i < compteur; i++) {
+            if (listeSalle[i]->haut == NULL &&
+            listeSalle[i]->bas == NULL &&
+            listeSalle[i]->gauche == NULL &&
+            listeSalle[i]->droite == NULL)
+            {
+                cout << "BUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG" << endl;
+            } else
 
             if (listeSalle[i]->haut != NULL) {
                 cout << "               haut " << listeSalle[i]->haut->nom << endl;

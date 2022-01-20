@@ -2,7 +2,7 @@
 #include "Arme.hpp"
 #include "PotionSoin.cpp"
 Amazones::Amazones(string nom) : Personnage(4,6,6,3,2,nom){
-
+    setClasse("Amazones");
     Arme * arme = new Arme ("lance de base",2,0,1);
     PotionSoin * potion = new PotionSoin();
     arme->ajouter(this);
