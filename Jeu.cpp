@@ -64,6 +64,7 @@ void Jeu::creationJoueur(){
 
 }
 
+
 void Jeu::partie (){
     creationJoueur();
 
@@ -114,6 +115,10 @@ void Jeu::deposerObjet(Chateau * cha){
     }
     int rep;
     cin >>rep;
+    while(rep<0 || rep>joueur->getSac().size()){
+        cout<<"choisissez un objet valable"<<endl;
+        cin>>rep;
+    }
     cha->getListeSalle()[joueur->getPosition()]->objetsPresent.push_back(joueur->getSac().at(rep-1));
     joueur->retirerObjet(joueur->getSac().at(rep-1));
 
@@ -125,7 +130,10 @@ void Jeu::utiliserObjet(){
     }
     int rep;
     cin >>rep;
-    cout<<joueur->getSac().at(rep-1)->getNom()<<endl;
+    while(rep<0 || rep>joueur->getSac().size()){
+        cout<<"choisissez un objet valable"<<endl;
+        cin>>rep;
+    }
     joueur->getSac().at(rep-1)->utiliser();
 }
 
@@ -133,10 +141,14 @@ void Jeu::ramasserObjet(Chateau * cha){
     cout<<"Quel objet voulez vous prendre"<<endl;
     for(int i =0;i<cha->getListeSalle()[joueur->getPosition()]->objetsPresent.size();i++){
         cout<<"-"<<i+1<<" "<<cha->getListeSalle()[joueur->getPosition()]->objetsPresent.at(i)->getNom();
-    }
+    }    
     cout<<"-0 Rien"<<endl;
     int rep;
-    cin >>rep;
+    cin>>rep;
+    while(rep<0 || rep>cha->getListeSalle()[joueur->getPosition()]->objetsPresent.size()){
+        cout<<"choisissez un objet valable"<<endl;
+        cin>>rep;
+    }
     if(rep == 0){
 
     }else if(rep>0 && rep<=cha->getListeSalle()[joueur->getPosition()]->objetsPresent.size()){
@@ -310,13 +322,12 @@ void Jeu::combat(Personnage * pers1, Personnage * perso2){
         }
 
         int jetDes = (rand() % 6 + 1);
-        cout<<"resattendu "<<resAttendu<<endl;
-        cout<<"jet des "<<jetDes<<endl;
+        cout << "résultat attendu : "<<resAttendu<<" jet de dés :"<<jetDes<<endl;
         if(jetDes>=resAttendu){
             perso2->setSante(perso2->getSante()-1);
             cout<<pers1->getNom()<<" inflige des dégats à "<<perso2->getNom()<<endl;
         }else{
-            cout<<"esquive"<<endl;
+            cout<<perso2->getNom()<<" esquive l'attaque de "<<pers1->getNom()<<endl;
         }
 
     }

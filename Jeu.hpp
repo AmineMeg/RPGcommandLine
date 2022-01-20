@@ -20,6 +20,7 @@ class Jeu {
         void creationJoueur();
         void partie ();
         void deposerObjet(Chateau * cha);
+        void affichage();
         void ramasserObjet(Chateau * cha);
         void utiliserObjet();
         void changerDeSalleJoueur(Chateau * chateau);
