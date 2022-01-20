@@ -7,6 +7,7 @@
 #include "Arme.hpp"
 #include "Armure.h"
 #include "PotionSoin.hpp"
+#include "CleTeleportation.hpp"
 bool check, check2 = false;
 
 __uint128_t g_lehmer64_state = 1337;

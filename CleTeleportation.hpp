@@ -1,9 +1,9 @@
-#ifndef POTIONSOIN_HPP_INCLUDED
-#define POTIONSOIN_HPP_INCLUDED
+#ifndef CLETELEPORTATION_HPP_INCLUDED
+#define CLETELEPORTATION_HPP_INCLUDED
 #include "Objet.hpp"
-class PotionSoin : public Objet{
+class CleTeleportation : public Objet{
     public:
-    PotionSoin();
+    CleTeleportation();
     void ajouter(Personnage * proprietaire);
     void retirer();
     void utiliser(Chateau * cha);
@@ -15,4 +15,4 @@ class PotionSoin : public Objet{
 };
 
 
-#endif // POTIONSOIN_HPP_INCLUDED
+#endif // OBJET_HPP_INCLUDED
