@@ -30,7 +30,7 @@ class Jeu {
         void deposerObjet(Chateau * cha);
         void affichage();
         void ramasserObjet(Chateau * cha);
-        void utiliserObjet();
+        void utiliserObjet(Chateau * cha);
         void changerDeSalleJoueur(Chateau * chateau);
         void changerSalleBot(Chateau * chateau,Personnage * bot);
         void checkCombat(Chateau * cha);

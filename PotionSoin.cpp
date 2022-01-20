@@ -20,7 +20,7 @@ void PotionSoin::retirer(){
     retirerProprietaire();
 }
 
-void PotionSoin::utiliser(){
+void PotionSoin::utiliser(Chateau * cha){
     cout<<"Utilisation Potion de soin"<<endl;
     srand((unsigned int)time(0));
     int jetDes = (rand() % 4 + 1);

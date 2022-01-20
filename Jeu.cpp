@@ -159,9 +159,15 @@ void Jeu::partie () {
                 int action = menuAction();
                 if (action == 1)
                     changerDeSalleJoueur(chateau);
+<<<<<<< HEAD
                 else if (action == 3) {
                     utiliserObjet();
                 } else if (action == 2) {
+=======
+                else if(action ==3){
+                    utiliserObjet(chateau);
+                }else if(action == 2){
+>>>>>>> e1c26e17925dfcf9575ea0d329273930908862f1
                     ramasserObjet(chateau);
                 } else if (action == 4) {
                     deposerObjet(chateau);
@@ -193,10 +199,17 @@ void Jeu::deposerObjet(Chateau * cha){
     }
 
 }
+<<<<<<< HEAD
 void Jeu::utiliserObjet() {
     cout << "--------------->Quel Objet Utiliser ?" << endl;
     for (int i = 0; i < joueur->getSac().size(); i++) {
         cout << "             " << i + 1 << "- " << joueur->getSac().at(i)->getNom();
+=======
+void Jeu::utiliserObjet(Chateau * cha ){
+    cout<<"Quel Objet Utiliser ?"<<endl;
+    for(int i=0;i<joueur->getSac().size();i++){
+        cout<<i+1<<"- "<<joueur->getSac().at(i)->getNom();
+>>>>>>> e1c26e17925dfcf9575ea0d329273930908862f1
     }
     cout << "           0- Rien" << endl;
     int rep;
@@ -210,6 +223,10 @@ void Jeu::utiliserObjet() {
     } else {
         joueur->getSac().at(rep - 1)->utiliser();
     }
+<<<<<<< HEAD
+=======
+    joueur->getSac().at(rep-1)->utiliser(cha);
+>>>>>>> e1c26e17925dfcf9575ea0d329273930908862f1
 }
 
 void Jeu::ramasserObjet(Chateau * cha){

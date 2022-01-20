@@ -4,6 +4,7 @@
 #include "Arme.hpp"
 #include "Armure.h"
 #include "PotionSoin.hpp"
+#include "CleTeleportation.hpp"
 
 bool check, check2 = false;
 
