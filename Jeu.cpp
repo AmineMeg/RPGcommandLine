@@ -284,6 +284,9 @@ void Jeu::checkCombat(Chateau * cha){
             cout <<"________________________________________\n"
                    "|****************COMBAT****************|\n"
                    "|______________________________________|"<<endl;
+            cout<< "Appuyer sur une touche pour le lancer"<< endl;
+            char unused;
+            cin >> unused;
             vector<Personnage*> combattants = cha->getListeSalle().at(i)->personnagesPresent;
             for(int j=0;j<combattants.size();j++){
                 for(int l=j+1;l<combattants.size();l++){
